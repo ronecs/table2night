@@ -1,26 +1,26 @@
 const theme = {
   color: {
-    white: '#fff',
+    white: '#ffffff',
     gray1: 'gray',
   },
 
   fontSize: {
-    xs: '8px',
-    s: '12px',
-    m: '16px',
-    l: '20px',
-    xl: '24px',
-    xxl: '32px',
+    size8: '8px',
+    size12: '12px',
+    size16: '16px',
+    size20: '20px',
+    size24: '24px',
+    size32: '32px',
   },
 
   space: {
-    xxs: '4px',
-    xs: '8px',
-    s: '16px',
-    m: '20px',
-    l: '24px',
-    xl: '32px',
-    xxl: '64px',
+    space4: '4px',
+    space8: '8px',
+    space16: '16px',
+    space20: '20px',
+    space24: '24px',
+    space32: '32px',
+    space64: '64px',
   },
 };
 
