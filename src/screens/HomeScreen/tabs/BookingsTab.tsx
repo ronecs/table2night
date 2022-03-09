@@ -1,18 +1,11 @@
 import React, { FC } from 'react';
-import { SafeAreaPaddingScreen } from '@table2night/components/common/ScreenWrappers';
-import styled from 'styled-components/native';
+import { SafeAreaPaddingScreen } from '@table2night/utils/theme/ScreenWrappers';
+import { Heading1 } from '@table2night/utils/theme/Texts';
 
-const Title = styled.Text`
-  color: ${({ theme }) => theme.color.gray1};
-  font-size: 44px;
-`;
-
-const BookingsTab: FC = () => {
-  return (
-    <SafeAreaPaddingScreen>
-      <Title>Bookings Tab</Title>
-    </SafeAreaPaddingScreen>
-  );
-};
+const BookingsTab: FC = () => (
+  <SafeAreaPaddingScreen>
+    <Heading1>Bookings Tab</Heading1>
+  </SafeAreaPaddingScreen>
+);
 
 export default BookingsTab;

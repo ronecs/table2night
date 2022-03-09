@@ -8,6 +8,6 @@ const Wrapper = styled.View`
   align-items: center;
 `;
 
-const RestaurantDetailScreen: FC = () => <Wrapper></Wrapper>;
+const RestaurantDetailScreen: FC = () => <Wrapper />;
 
 export default RestaurantDetailScreen;

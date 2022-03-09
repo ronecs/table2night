@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import MainNavigation from './navigation/MainNavigation';
 import AppLoading from 'expo-app-loading';
-import { loadFonts } from './utils/commonUtils';
 import { ThemeProvider } from 'styled-components/native';
 import theme from '@table2night/utils/theme/theme';
+import Toast from 'react-native-toast-message';
+import { loadFonts } from './utils/commonUtils';
+import MainNavigation from './navigation/MainNavigation';
 
-export default function App() {
+const App = () => {
   // State to store information if App has finished loading
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -31,6 +32,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <MainNavigation />
+      <Toast />
     </ThemeProvider>
   );
-}
+};
+
+export default App;

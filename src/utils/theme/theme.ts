@@ -1,29 +1,43 @@
 const theme = {
   color: {
-    white: '#fff',
-    gray1: 'gray',
+    white: '#ffffff',
+    black: '#000000',
+    green10: '#DEFBE6',
+    green20: '#A7F0BA',
+    green30: '#6FDC8C',
+    green40: '#42BE65',
+    green50: '#24A148',
+    green60: '#198038',
+    green70: '#0E6027',
+    green80: '#044317',
+    green90: '#022D0D',
+    green100: '#071908',
+    gray20: '#E6E6E6',
+    gray80: '#9CA3AF',
   },
 
   fontSize: {
-    xs: '8px',
-    s: '12px',
-    m: '16px',
-    l: '20px',
-    xl: '24px',
-    xxl: '32px',
+    size8: '8px',
+    size12: '12px',
+    size16: '16px',
+    size20: '20px',
+    size24: '24px',
+    size32: '32px',
   },
 
   space: {
-    xxs: '4px',
-    xs: '8px',
-    s: '16px',
-    m: '20px',
-    l: '24px',
-    xl: '32px',
-    xxl: '64px',
+    space4: '4px',
+    space8: '8px',
+    space16: '16px',
+    space20: '20px',
+    space24: '24px',
+    space32: '32px',
+    space64: '64px',
   },
 };
 
 export type TTheme = typeof theme;
+
+export const stripPx = (value: string) => +value.replace('px', '');
 
 export default theme;
