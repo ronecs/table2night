@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SafeAreaPaddingScreen } from '@table2night/components/common/ScreenWrappers';
+import { SafeAreaPaddingScreen } from '@table2night/utils/theme/ScreenWrappers';
 import styled from 'styled-components/native';
 
 const Title = styled.Text`
@@ -7,12 +7,10 @@ const Title = styled.Text`
   font-size: 44px;
 `;
 
-const BookingsTab: FC = () => {
-  return (
-    <SafeAreaPaddingScreen>
-      <Title>Bookings Tab</Title>
-    </SafeAreaPaddingScreen>
-  );
-};
+const BookingsTab: FC = () => (
+  <SafeAreaPaddingScreen>
+    <Title>Bookings Tab</Title>
+  </SafeAreaPaddingScreen>
+);
 
 export default BookingsTab;

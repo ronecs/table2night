@@ -1,7 +1,11 @@
 const theme = {
   color: {
     white: '#ffffff',
+    black: '#000000',
     gray1: 'gray',
+    green10: '#D1FAE5',
+    green20: '#10B981',
+    green50: '#32B768',
   },
 
   fontSize: {

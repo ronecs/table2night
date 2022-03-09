@@ -106,6 +106,7 @@
     "no-restricted-syntax": "warn",
     "no-await-in-loop": "warn",
     "react-native/no-inline-styles": "warn",
-    "react-native/no-color-literals": "warn"
+    "react-native/no-color-literals": "warn",
+    "react/react-in-jsx-scope": "off"
   }
 }
