@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { loadFonts } from './utils/commonUtils';
 import { ThemeProvider } from 'styled-components/native';
 import theme from '@table2night/utils/theme/theme';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   // State to store information if App has finished loading
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <MainNavigation />
+      <Toast />
     </ThemeProvider>
   );
 }

@@ -42,6 +42,7 @@
     "react-native-screens": "~3.4.0",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-toast-message": "^2.1.1",
     "react-native-web": "~0.13.12",
     "styled-components": "5.2.0"
   },
