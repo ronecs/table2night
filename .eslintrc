@@ -22,14 +22,14 @@
     },
     "import/resolver": {
       "typescript": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".test.ts", "test.tsx"]
       }
     }
   },
   "rules": {
     "camelcase": "off",
     "prefer-arrow/prefer-arrow-functions": [
-      "warn",
+      "error",
       {
         "disallowPrototype": true,
         "singleReturnOnly": false,
@@ -86,23 +86,26 @@
     "react/jsx-indent": "off",
     "react/no-unused-prop-types": "error",
     "@typescript-eslint/no-shadow": "warn",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "import/no-named-as-default": "error",
     "react/no-array-index-key": "warn",
+    "no-void": "error",
+    "react/style-prop-object": "error",
+    "no-nested-ternary": "error",
+    "react/destructuring-assignment": "error",
+    "import/no-absolute-path": "error",
+    "no-underscore-dangle": ["error", {"allow":  ["__typename"]}],
+
     // Rules below are causing lint command fail
     "react-native/no-single-element-style-arrays": "off",
     "react-native/no-raw-text": "off", // https://github.com/Intellicode/eslint-plugin-react-native/issues/270
     //Rules below are turned off temporarily because enourmous amount of them
     "import/no-cycle": "warn",
-    "no-void": "warn",
-    "import/no-absolute-path": "warn",
     "import/no-unresolved": "warn",
     "global-require": "warn",
     "no-restricted-syntax": "warn",
     "no-await-in-loop": "warn",
-    "react/destructuring-assignment": "error",
     "react-native/no-inline-styles": "warn",
-    "react-native/no-color-literals": "warn",
-    "no-nested-ternary": "warn",
-    "react/style-prop-object": "warn"
+    "react-native/no-color-literals": "warn"
   }
 }
