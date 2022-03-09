@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
 import { SafeAreaPaddingScreen } from '@table2night/utils/theme/ScreenWrappers';
-import styled from 'styled-components/native';
 import Button from '@table2night/components/common/Button';
-
-const Title = styled.Text`
-  color: ${({ theme }) => theme.color.gray1};
-  font-size: 44px;
-`;
+import { Heading1 } from '@table2night/utils/theme/Texts';
 
 const HomeTab: FC = () => (
   <SafeAreaPaddingScreen>
-    <Title>Home Tab</Title>
-    <Button />
+    <Heading1>Home Tab</Heading1>
+    <Button disabled onPress={() => undefined} label="Press me" />
   </SafeAreaPaddingScreen>
 );
 

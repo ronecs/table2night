@@ -2,10 +2,18 @@ const theme = {
   color: {
     white: '#ffffff',
     black: '#000000',
-    gray1: 'gray',
-    green10: '#D1FAE5',
-    green20: '#10B981',
-    green50: '#32B768',
+    green10: '#DEFBE6',
+    green20: '#A7F0BA',
+    green30: '#6FDC8C',
+    green40: '#42BE65',
+    green50: '#24A148',
+    green60: '#198038',
+    green70: '#0E6027',
+    green80: '#044317',
+    green90: '#022D0D',
+    green100: '#071908',
+    gray20: '#F4F4F4',
+    gray80: '#9CA3AF',
   },
 
   fontSize: {
@@ -29,5 +37,7 @@ const theme = {
 };
 
 export type TTheme = typeof theme;
+
+export const stripPx = (value: string) => +value.replace('px', '');
 
 export default theme;
