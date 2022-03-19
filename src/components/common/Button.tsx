@@ -4,15 +4,20 @@ import { ButtonLabel } from '@table2night/utils/theme/Texts';
 import { TButtonSize, TButtonStyle, TButtonVariant } from '@table2night/types/TButton';
 import { stripPx, TTheme } from '@table2night/utils/theme/theme';
 
-const Wrapper = styled.Pressable`
+const Wrapper = styled.Pressable<{
+  backgroundColor: string;
+  paddingHorizontal: number;
+  paddingVertical: number;
+}>`
   flex-direction: row;
-  background-color: ${({ theme }) => theme.color.green50};
-  padding: ${({ theme }) => theme.space.space16} ${({ theme }) => theme.space.space32};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  padding: ${({ paddingVertical }) => paddingVertical}px
+    ${({ paddingHorizontal }) => paddingHorizontal}px;
   border-radius: ${({ theme }) => theme.space.space8};
 `;
 
-const Label = styled(ButtonLabel)`
-  color: ${({ theme }) => theme.color.white};
+const Label = styled(ButtonLabel)<{ textColor: string }>`
+  color: ${({ textColor }) => textColor};
 `;
 
 const getButtonStyles = (
@@ -23,12 +28,10 @@ const getButtonStyles = (
 ): TButtonStyle => {
   let paddingHorizontal = stripPx(theme.space.space32);
   let paddingVertical = stripPx(theme.space.space16);
+
   let color = theme.color.green50;
   let textColor = theme.color.white;
-  if (disabled) {
-    color = theme.color.green30;
-    textColor = theme.color.green80;
-  }
+
   // eslint-disable-next-line default-case
   switch (size) {
     case TButtonSize.SMALL:
@@ -38,13 +41,20 @@ const getButtonStyles = (
     case TButtonSize.LARGE:
       paddingHorizontal = stripPx(theme.space.space64);
       paddingVertical = stripPx(theme.space.space32);
+      break;
   }
+
   // eslint-disable-next-line default-case
   switch (variant) {
     case TButtonVariant.SECONDARY:
       color = theme.color.green30;
       textColor = theme.color.green80;
       break;
+  }
+
+  if (disabled) {
+    color = theme.color.gray20;
+    textColor = theme.color.gray80;
   }
 
   return {
@@ -73,8 +83,13 @@ const Button: FC<ButtonProps> = ({
   const theme = useTheme();
   const buttonStyles = getButtonStyles(variant, size, disabled, theme);
   return (
-    <Wrapper onPress={disabled ? undefined : onPress}>
-      <Label>{label}</Label>
+    <Wrapper
+      backgroundColor={buttonStyles.color}
+      paddingHorizontal={buttonStyles.paddingHorizontal}
+      paddingVertical={buttonStyles.paddingVertical}
+      onPress={disabled ? undefined : onPress}
+    >
+      <Label textColor={buttonStyles.textColor}>{label}</Label>
     </Wrapper>
   );
 };

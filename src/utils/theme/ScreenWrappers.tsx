@@ -6,4 +6,5 @@ export const SafeAreaPaddingScreen = styled(SafeAreaView)`
   padding: 0 ${({ theme }) => theme.space.space16};
   justify-content: center;
   align-items: center;
+  background-color: ${({ theme }) => theme.color.white};
 `;
