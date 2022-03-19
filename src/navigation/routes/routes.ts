@@ -1,8 +1,9 @@
 const ROUTES = {
   // SCREENS
+  IntroductionScreen: 'IntroductionScreen',
+  RegisterScreen: 'RegisterScreen',
   HomeScreen: 'HomeScreen',
-
-  // TABS
+  LoginScreen: 'LoginScreen',
 
   // TABS  - HomeScreen
   HomeTab: 'HomeTab',

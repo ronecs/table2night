@@ -3,6 +3,7 @@ import styled, { useTheme } from 'styled-components/native';
 import { ButtonLabel } from '@table2night/utils/theme/Texts';
 import { TButtonSize, TButtonStyle, TButtonVariant } from '@table2night/types/TButton';
 import { stripPx, TTheme } from '@table2night/utils/theme/theme';
+import { ActivityIndicator } from 'react-native';
 
 const Wrapper = styled.Pressable<{
   backgroundColor: string;
@@ -14,10 +15,14 @@ const Wrapper = styled.Pressable<{
   padding: ${({ paddingVertical }) => paddingVertical}px
     ${({ paddingHorizontal }) => paddingHorizontal}px;
   border-radius: ${({ theme }) => theme.space.space8};
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;
 
 const Label = styled(ButtonLabel)<{ textColor: string }>`
   color: ${({ textColor }) => textColor};
+  text-align: center;
 `;
 
 const getButtonStyles = (
@@ -71,6 +76,7 @@ type ButtonProps = {
   label?: string;
   variant?: TButtonVariant;
   size?: TButtonSize;
+  loading?: boolean;
 };
 
 const Button: FC<ButtonProps> = ({
@@ -79,9 +85,10 @@ const Button: FC<ButtonProps> = ({
   label,
   variant = TButtonVariant.PRIMARY,
   size = TButtonSize.DEFAULT,
+  loading = false,
 }) => {
   const theme = useTheme();
-  const buttonStyles = getButtonStyles(variant, size, disabled, theme);
+  const buttonStyles = getButtonStyles(variant, size, disabled || loading, theme);
   return (
     <Wrapper
       backgroundColor={buttonStyles.color}
@@ -89,7 +96,7 @@ const Button: FC<ButtonProps> = ({
       paddingVertical={buttonStyles.paddingVertical}
       onPress={disabled ? undefined : onPress}
     >
-      <Label textColor={buttonStyles.textColor}>{label}</Label>
+      {loading ? <ActivityIndicator /> : <Label textColor={buttonStyles.textColor}>{label}</Label>}
     </Wrapper>
   );
 };
