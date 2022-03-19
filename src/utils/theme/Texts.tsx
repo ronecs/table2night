@@ -1,9 +1,5 @@
 import styled from 'styled-components/native';
 
-const RegularText = styled.Text`
-  font-family: 'SF-Regular';
-`;
-
 const MediumText = styled.Text`
   font-family: 'SF-Medium';
 `;
@@ -33,7 +29,7 @@ export const ButtonLabel = styled(BoldText)`
   letter-spacing: 1px;
 `;
 
-export const Body = styled(RegularText)`
+export const Body = styled(MediumText)`
   font-size: 16px;
   line-height: 22px;
 `;

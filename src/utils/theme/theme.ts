@@ -14,6 +14,7 @@ const theme = {
     green100: '#071908',
     gray20: '#E6E6E6',
     gray80: '#9CA3AF',
+    gray100: '#717171',
   },
 
   fontSize: {
@@ -32,7 +33,9 @@ const theme = {
     space20: '20px',
     space24: '24px',
     space32: '32px',
+    space48: '48px',
     space64: '64px',
+    space80: '80px',
   },
 };
 
