@@ -19,8 +19,8 @@ export const Heading2 = styled(MediumText)`
 `;
 
 export const Heading3 = styled(MediumText)`
-  font-size: 21px;
-  line-height: 26px;
+  font-size: 19px;
+  line-height: 24px;
 `;
 
 export const ButtonLabel = styled(BoldText)`
