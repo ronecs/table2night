@@ -12,7 +12,7 @@ const theme = {
     green80: '#044317',
     green90: '#022D0D',
     green100: '#071908',
-    gray20: '#F4F4F4',
+    gray20: '#E6E6E6',
     gray80: '#9CA3AF',
   },
 
