@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BookingsTab from '@table2night/screens/HomeScreen/tabs/BookingsTab';
-import SettingsTab from '@table2night/screens/HomeScreen/tabs/SettingsTab';
+import ProfileTab from '@table2night/screens/HomeScreen/tabs/ProfileTab';
 import BookingsIcon from '@table2night/assets/img/bookingsIcon.svg';
 import BookingsIconFocused from '@table2night/assets/img/bookingsIconFocused.svg';
 import HomeIcon from '@table2night/assets/img/homeIcon.svg';
@@ -65,7 +65,7 @@ const HomeTabNavigation: FC = () => {
       />
       <Tab.Screen
         name={ROUTES.SettingsTab}
-        component={SettingsTab}
+        component={ProfileTab}
         options={{
           title: '',
           tabBarIcon: ({ focused }) =>

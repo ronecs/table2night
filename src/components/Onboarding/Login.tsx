@@ -52,7 +52,7 @@ const Login: FC = () => {
     } catch (e) {
       Toast.show({
         type: 'error',
-        text1: e,
+        text1: e.message,
         autoHide: true,
         position: 'bottom',
       });

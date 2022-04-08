@@ -4,6 +4,7 @@ const ROUTES = {
   RegisterScreen: 'RegisterScreen',
   HomeScreen: 'HomeScreen',
   LoginScreen: 'LoginScreen',
+  RestaurantDetailScreen: 'RestaurantDetailScreen',
 
   // TABS  - HomeScreen
   HomeTab: 'HomeTab',

@@ -1,8 +1,10 @@
 import { Heading3 } from '@table2night/utils/theme/Texts';
 import React, { FC } from 'react';
 import styled from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
+import ROUTES from '@table2night/navigation/routes/routes';
 
-const Wrapper = styled.View`
+const Wrapper = styled.Pressable`
   padding: ${({ theme }) => theme.space.space8};
   background-color: ${({ theme }) => theme.color.white};
   border-radius: ${({ theme }) => theme.space.space16};
@@ -23,13 +25,19 @@ type Props = {
   image: string;
 };
 
-const RestaurantItem: FC<Props> = ({ name, image }) => (
-  <Wrapper>
-    <StyledImage source={{ uri: image }} />
-    <NameWrapper>
-      <Heading3>{name}</Heading3>
-    </NameWrapper>
-  </Wrapper>
-);
+const RestaurantItem: FC<Props> = ({ name, image }) => {
+  const { navigate } = useNavigation();
+  const onItemPress = () => {
+    navigate(ROUTES.RestaurantDetailScreen);
+  };
+  return (
+    <Wrapper onPress={onItemPress}>
+      <StyledImage source={{ uri: image }} />
+      <NameWrapper>
+        <Heading3>{name}</Heading3>
+      </NameWrapper>
+    </Wrapper>
+  );
+};
 
 export default RestaurantItem;

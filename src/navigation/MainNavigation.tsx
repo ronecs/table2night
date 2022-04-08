@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import IntroductionScreen from '@table2night/screens/Onboarding/IntroductionScreen';
 import RegisterScreen from '@table2night/screens/Onboarding/RegisterScreen';
 import LoginScreen from '@table2night/screens/Onboarding/LoginScreen';
+import RestaurantDetailScreen from '@table2night/screens/Restaurant/RestaurantDetailScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ROUTES from './routes/routes';
 
@@ -31,6 +32,11 @@ const MainNavigation: FC = () => (
         name={ROUTES.HomeScreen}
         component={HomeScreen}
         options={{ header: () => null, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name={ROUTES.RestaurantDetailScreen}
+        component={RestaurantDetailScreen}
+        options={{ header: () => null }}
       />
     </Stack.Navigator>
   </NavigationContainer>
