@@ -16,13 +16,30 @@ type Props = {
   onTextChange: (text: string) => void;
   isPassword?: boolean;
   isEmail?: boolean;
+  isNumber?: boolean;
 };
 
-const Input: FC<Props> = ({ placeHolder, isPassword = false, onTextChange, isEmail = false }) => {
+const Input: FC<Props> = ({
+  placeHolder,
+  isPassword = false,
+  onTextChange,
+  isEmail = false,
+  isNumber = false,
+}) => {
   const [inputValue, setInputValue] = useState('');
   const onTextChangeInternal = (text: string) => {
     setInputValue(text);
     onTextChange(text);
+  };
+
+  const getKeyboardType = () => {
+    if (isEmail) {
+      return 'email-address';
+    }
+    if (isNumber) {
+      return 'numeric';
+    }
+    return undefined;
   };
   const theme = useTheme();
   return (
@@ -32,7 +49,7 @@ const Input: FC<Props> = ({ placeHolder, isPassword = false, onTextChange, isEma
       placeholder={placeHolder}
       placeholderTextColor={theme.color.gray80}
       secureTextEntry={isPassword}
-      keyboardType={isEmail ? 'email-address' : undefined}
+      keyboardType={getKeyboardType()}
     />
   );
 };

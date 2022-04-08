@@ -5,3 +5,10 @@ export type TRestaurantListItem = {
 };
 
 export type TRestaurantList = TRestaurantListItem[];
+
+export type TRestaurantDetail = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+};

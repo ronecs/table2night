@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { SafeAreaPaddingScreen } from '@table2night/utils/theme/ScreenWrappers';
-import BookingsListContainer from '@table2night/components/Bookings/BookingsList.container';
+import ProfileContainer from '@table2night/components/Profile/Profile.container';
 
-const BookingsTab: FC = () => (
+const ProfileTab: FC = () => (
   <SafeAreaPaddingScreen edges={['top']}>
-    <BookingsListContainer />
+    <ProfileContainer />
   </SafeAreaPaddingScreen>
 );
 
-export default BookingsTab;
+export default ProfileTab;
