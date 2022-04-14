@@ -3,11 +3,8 @@ import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from '@table2night/utils/theme/theme';
 import Toast from 'react-native-toast-message';
-import {
-  BottomSheetContext,
-  BottomSheetProvider,
-} from '@gorhom/bottom-sheet/lib/typescript/contexts';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import ReactQueryProvider from '@table2night/contexts/ReactQueryContext';
 import { loadFonts } from './utils/commonUtils';
 import MainNavigation from './navigation/MainNavigation';
 
@@ -36,10 +33,12 @@ const App = () => {
   // App
   return (
     <ThemeProvider theme={theme}>
-      <BottomSheetModalProvider>
-        <MainNavigation />
-        <Toast />
-      </BottomSheetModalProvider>
+      <ReactQueryProvider>
+        <BottomSheetModalProvider>
+          <MainNavigation />
+          <Toast />
+        </BottomSheetModalProvider>
+      </ReactQueryProvider>
     </ThemeProvider>
   );
 };

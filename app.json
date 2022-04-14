@@ -24,6 +24,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
+    },
+    "extra": {
+      "apiUrl": "https://fiit-ganadikronec.azurewebsites.net/",
+      "apiToken": "helloworld"
     }
   }
 }

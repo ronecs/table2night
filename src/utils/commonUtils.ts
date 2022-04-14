@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 import * as Font from 'expo-font';
+import Constants from 'expo-constants';
 
 export const loadFonts = async () => {
   await Font.loadAsync({
@@ -33,3 +34,8 @@ export const loadFonts = async () => {
     },
   });
 };
+
+export const getApiUrl = () => Constants.manifest?.extra?.apiUrl;
+export const getApiToken = () => Constants.manifest?.extra?.apiToken;
+
+export const getImageUri = (value: string) => `data:image/jpeg;base64,${value}`;

@@ -16,7 +16,11 @@ const Divider = styled.View`
 `;
 
 const renderItem = ({ item }: ListRenderItemInfo<TRestaurantListItem>) => (
-  <RestaurantItem name={item.name} image={item.image} key={item.id} />
+  <RestaurantItem
+    name={item.restaurant_name}
+    image={item.restaurant_image}
+    id={item.id_restaurants}
+  />
 );
 
 const renderHeader = () => <Header>Top restaurants for you</Header>;
@@ -29,6 +33,7 @@ const RestaurantList: FC<Props> = ({ restaurants }) => (
   <FlatList
     data={restaurants}
     renderItem={renderItem}
+    keyExtractor={(item) => item.id_restaurants}
     ListHeaderComponent={renderHeader}
     ItemSeparatorComponent={Divider}
     showsVerticalScrollIndicator={false}

@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components/native';
 import Button from '@table2night/components/common/Button';
 import { TButtonVariant } from '@table2night/types/TButton';
+import { getImageUri } from '@table2night/utils/commonUtils';
 
 const Wrapper = styled.ScrollView`
   padding: ${({ theme }) => theme.space.space8};
@@ -55,7 +56,7 @@ const RestaurantDetail: FC<Props> = ({
   onMakeCallPress,
 }) => (
   <Wrapper>
-    <StyledImage source={{ uri: image }} />
+    <StyledImage source={{ uri: getImageUri(image) }} />
     <NameWrapper>
       <Heading2>{name}</Heading2>
       <StyledDescription>{description}</StyledDescription>
