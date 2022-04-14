@@ -1,14 +1,14 @@
 export type TRestaurantListItem = {
-  id: string;
-  name: string;
-  image: string;
+  id_restaurants: string;
+  restaurant_name: string;
+  restaurant_image: string;
 };
 
 export type TRestaurantList = TRestaurantListItem[];
 
 export type TRestaurantDetail = {
-  id: string;
-  name: string;
-  image: string;
+  id_restaurants: string;
+  restaurant_name: string;
+  restaurant_image: string;
   description: string;
 };

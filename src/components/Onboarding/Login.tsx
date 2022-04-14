@@ -8,6 +8,12 @@ import { KeyboardAvoidingView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
 import ROUTES from '@table2night/navigation/routes/routes';
+import { useMutation } from 'react-query';
+import { loginUser } from '@table2night/api/user';
+import { useUserInfo } from '@table2night/contexts/UserContext';
+import { TBasicUserInfo } from '@table2night/types/TUser';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '@table2night/utils/storageUtils';
 
 export const Title = styled(Heading2)`
   align-self: flex-start;
@@ -40,15 +46,41 @@ const ButtonsWrapper = styled.View`
 
 const Login: FC = () => {
   const { reset } = useNavigation();
-  // ToDo: Add validation of fields
+  const { setUserInfo } = useUserInfo();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { mutateAsync: loginUserMutation, isLoading, data } = useMutation(loginUser);
+
   const onSubmit = async () => {
-    setIsLoading(true);
     try {
-      // Do API call here instead of timeout
-      await new Promise((r) => setTimeout(r, 2000));
+      const formValues = {
+        email,
+        password,
+      };
+      await loginUserMutation(formValues);
+      if (!isLoading && data?.data.items) {
+        const user = data.data.items[0];
+        // Set info into user context
+        const userInfo: TBasicUserInfo = {
+          id: user.id_users,
+          name: user.user_name,
+          image: user.user_image,
+        };
+        setUserInfo(userInfo);
+        // Set info into AsyncStorage
+        await AsyncStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(userInfo));
+        // Navigate to homeScreen
+        reset({ index: 0, routes: [{ name: ROUTES.HomeScreen }] });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: `Server couldn't handle request. Try again`,
+          autoHide: true,
+          position: 'bottom',
+          visibilityTime: 1000,
+        });
+      }
     } catch (e) {
       Toast.show({
         type: 'error',
@@ -57,12 +89,6 @@ const Login: FC = () => {
         position: 'bottom',
       });
     }
-
-    setIsLoading(false);
-    reset({
-      index: 0,
-      routes: [{ name: ROUTES.HomeScreen }],
-    });
   };
   return (
     <KeyboardAwareScrollView
