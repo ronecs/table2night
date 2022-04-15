@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components/native';
-import { ActivityIndicator } from 'react-native';
 import { Heading3 } from '@table2night/utils/theme/Texts';
 import Button from '@table2night/components/common/Button';
 

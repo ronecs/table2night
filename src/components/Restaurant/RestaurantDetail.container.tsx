@@ -2,10 +2,15 @@ import React, { FC, useRef, useState } from 'react';
 import RestaurantDetail from '@table2night/components/Restaurant/RestaurantDetail';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import BookingsModal from '@table2night/components/Bookings/BookingsModal';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { fetchRestaurantDetail } from '@table2night/api/restaurant';
 import Loading from '@table2night/components/common/Loading';
 import Error from '@table2night/components/common/Error';
+import { addBooking } from '@table2night/api/booking';
+import { getApiToken } from '@table2night/utils/commonUtils';
+import dayjs from 'dayjs';
+import Toast from 'react-native-toast-message';
+import { useUserInfo } from '@table2night/contexts/UserContext';
 
 type Props = {
   id: string;
@@ -14,10 +19,13 @@ type Props = {
 const RestaurantDetailContainer: FC<Props> = ({ id }) => {
   const modalRef = useRef<BottomSheetModal>(null);
   const [showCallButton, setShowCallButton] = useState(false);
-
+  const { userInfo } = useUserInfo();
   const { isLoading, isError, data, refetch } = useQuery('query-restaurant-detail', () =>
     fetchRestaurantDetail(id),
   );
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: addBookingMutation, isLoading: isLoadingBooking } = useMutation(addBooking);
 
   if (isLoading) {
     return <Loading />;
@@ -33,8 +41,31 @@ const RestaurantDetailContainer: FC<Props> = ({ id }) => {
     modalRef.current?.present();
   };
 
-  const onSubmit = () => {
-    // Send data to server
+  const onSubmit = async (date: Date, peopleCount: number) => {
+    try {
+      const formData = {
+        user_id: userInfo?.id || '',
+        rest_id: id,
+        date_time: dayjs(date).format('YYYY-MM-DD HH:mm:00'),
+        num_ppl: peopleCount,
+        dbs_psswd: getApiToken(),
+      };
+      await addBookingMutation(formData);
+      await queryClient.invalidateQueries('query-bookings-list');
+      Toast.show({
+        type: 'success',
+        text1: 'Successfully added booking',
+        autoHide: true,
+        position: 'bottom',
+      });
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'Failed to add booking',
+        autoHide: true,
+        position: 'bottom',
+      });
+    }
   };
 
   const onMakeCallPress = () => {
@@ -44,6 +75,7 @@ const RestaurantDetailContainer: FC<Props> = ({ id }) => {
   return (
     <>
       <RestaurantDetail
+        isLoading={isLoadingBooking}
         name={detailData.restaurant_name}
         image={detailData.restaurant_image}
         description={detailData.description}
@@ -51,7 +83,7 @@ const RestaurantDetailContainer: FC<Props> = ({ id }) => {
         showCallButton={showCallButton}
         onMakeCallPress={onMakeCallPress}
       />
-      <BookingsModal modalRef={modalRef} onFinish={setShowCallButton} userId="" submit={onSubmit} />
+      <BookingsModal modalRef={modalRef} onFinish={setShowCallButton} submit={onSubmit} />
     </>
   );
 };

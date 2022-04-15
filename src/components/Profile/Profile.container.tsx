@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import Profile from '@table2night/components/Profile/Profile';
-import { userProfile } from '@table2night/fixtures/fixtures';
 import styled from 'styled-components/native';
 import { Heading2 } from '@table2night/utils/theme/Texts';
+import { useUserInfo } from '@table2night/contexts/UserContext';
 
 const Header = styled(Heading2)`
   width: 60%;
@@ -10,12 +10,11 @@ const Header = styled(Heading2)`
 `;
 
 const ProfileContainer: FC = () => {
-  // ToDo - fetch actual data or retrieve from localStorage/UserContext
-  const data = userProfile;
+  const { userInfo, setUserInfo } = useUserInfo();
   return (
     <>
       <Header>Profile</Header>
-      <Profile user={data} />
+      <Profile user={userInfo} setUserInfo={setUserInfo} />
     </>
   );
 };

@@ -54,11 +54,9 @@ const NumbersWrapper = styled.View`
 type Props = {
   modalRef: any;
   onFinish: (arg: boolean) => void;
-  userId: string;
-  bookingId?: string;
-  submit: () => void;
+  submit: (date: Date, peopleCount: number) => void;
 };
-const BookingsModal: FC<Props> = ({ modalRef, onFinish, bookingId, userId, submit }) => {
+const BookingsModal: FC<Props> = ({ modalRef, onFinish, submit }) => {
   const { renderBackdrop } = useModalUtils();
   const theme = useTheme();
   const windowHeight = Dimensions.get('window').height - stripPx(theme.space.space64);
@@ -69,7 +67,7 @@ const BookingsModal: FC<Props> = ({ modalRef, onFinish, bookingId, userId, submi
   const onSubmit = () => {
     modalRef.current?.dismiss();
     // take data userID and date and submit to server
-    submit();
+    submit(dateTimeValue, peopleCount);
     onFinish(true);
   };
 

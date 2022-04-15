@@ -9,6 +9,11 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import Button from '@table2night/components/common/Button';
 import { TButtonVariant } from '@table2night/types/TButton';
 import useModalUtils from '@table2night/hooks/useModalUtils';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteBooking, editBooking } from '@table2night/api/booking';
+import Toast from 'react-native-toast-message';
+import BookingsModal from '@table2night/components/Bookings/BookingsModal';
+import Loading from '@table2night/components/common/Loading';
 
 dayjs.extend(relativeTime);
 
@@ -53,24 +58,70 @@ type Props = {
   restaurantName: string;
   date: string;
   peopleCount: number;
+  section: string;
 };
 
-const BookingItem: FC<Props> = ({ restaurantName, date, id, peopleCount }) => {
+const BookingItem: FC<Props> = ({ restaurantName, date, id, peopleCount, section }) => {
   const { renderBackdrop } = useModalUtils();
   const modalRef = useRef<BottomSheetModal>(null);
-  const onDeletePress = () => {
+  const editModalRef = useRef<BottomSheetModal>(null);
+  const { mutateAsync: editBookingMutation, isLoading: isLoadingBooking } =
+    useMutation(editBooking);
+  const queryClient = useQueryClient();
+  const { mutateAsync: deleteBookingMutation } = useMutation(deleteBooking);
+  const onDeletePress = async () => {
     modalRef.current?.dismiss();
-    // ToDo - take the ID and call delete mutation here
+    await deleteBookingMutation(id);
+    await queryClient.invalidateQueries('query-bookings-list');
+    Toast.show({
+      type: 'success',
+      text1: 'Booking successfully deleted',
+      autoHide: true,
+      position: 'bottom',
+    });
   };
 
   const onEditPress = () => {
     modalRef.current?.dismiss();
-    // ToDo - take the ID and call edit mutation here
+    editModalRef.current?.present();
   };
 
   const onItemPress = () => {
     modalRef.current?.present();
   };
+
+  const onSubmit = async (date: Date, peopleCount: number) => {
+    try {
+      const formData = {
+        id,
+        date_time: dayjs(date).format('YYYY-MM-DD HH:mm:00'),
+        num_ppl: peopleCount,
+      };
+      await editBookingMutation(formData);
+      await queryClient.invalidateQueries('query-bookings-list');
+      Toast.show({
+        type: 'success',
+        text1: 'Successfully edited booking',
+        autoHide: true,
+        position: 'bottom',
+      });
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'Failed to edit',
+        autoHide: true,
+        position: 'bottom',
+      });
+    }
+  };
+
+  if (isLoadingBooking) {
+    return (
+      <Wrapper>
+        <Loading />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper onPress={onItemPress}>
@@ -86,16 +137,19 @@ const BookingItem: FC<Props> = ({ restaurantName, date, id, peopleCount }) => {
 
       <BottomSheetModal backdropComponent={renderBackdrop} ref={modalRef} snapPoints={[250]}>
         <ButtonWrapper>
-          <Button
-            variant={TButtonVariant.SECONDARY}
-            onPress={onEditPress}
-            label="Edit this booking"
-          />
+          {section !== 'Past' && (
+            <Button
+              variant={TButtonVariant.SECONDARY}
+              onPress={onEditPress}
+              label="Edit this booking"
+            />
+          )}
         </ButtonWrapper>
         <ButtonWrapper>
           <Button onPress={onDeletePress} label="Delete this booking" />
         </ButtonWrapper>
       </BottomSheetModal>
+      <BookingsModal modalRef={editModalRef} onFinish={() => undefined} submit={onSubmit} />
     </Wrapper>
   );
 };

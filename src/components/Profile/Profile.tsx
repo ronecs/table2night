@@ -6,6 +6,8 @@ import Button from '@table2night/components/common/Button';
 import { TButtonVariant } from '@table2night/types/TButton';
 import Routes from '@table2night/navigation/routes/routes';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORAGE_KEYS } from '@table2night/utils/storageUtils';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -17,6 +19,7 @@ const Avatar = styled.Image`
   height: ${({ theme }) => theme.space.space64};
   border-radius: ${({ theme }) => theme.space.space64};
   margin-right: ${({ theme }) => theme.space.space16};
+  background-color: ${({ theme }) => theme.color.gray20};
 `;
 
 const HeaderWrapper = styled.View`
@@ -39,18 +42,23 @@ const ButtonWrapper = styled.View`
 `;
 
 type Props = {
-  user: TBasicUserInfo;
+  user?: TBasicUserInfo | null;
+  setUserInfo: (arg: TBasicUserInfo | null) => void;
 };
 
-const Profile: FC<Props> = ({ user }) => {
-  const { navigate } = useNavigation();
-  const onLogoutPress = () => {
-    // ToDo - remove id from local storage and from context and restart app with new settings
+const Profile: FC<Props> = ({ user, setUserInfo }) => {
+  const { navigate, reset } = useNavigation();
+  const onLogoutPress = async () => {
+    await AsyncStorage.setItem(STORAGE_KEYS.USER_INFO, '');
+    setUserInfo(null);
+    reset({ index: 0, routes: [{ name: ROUTES.IntroductionScreen }] });
   };
 
   const onButtonPress = (route: string) => () => {
     navigate(route);
   };
+
+  if (!user) return null;
 
   return (
     <Wrapper>
