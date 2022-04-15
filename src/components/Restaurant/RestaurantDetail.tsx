@@ -45,6 +45,7 @@ type Props = {
   onBookButtonPress: () => void;
   showCallButton: boolean;
   onMakeCallPress: () => void;
+  isLoading: boolean;
 };
 
 const RestaurantDetail: FC<Props> = ({
@@ -54,6 +55,7 @@ const RestaurantDetail: FC<Props> = ({
   onBookButtonPress,
   showCallButton,
   onMakeCallPress,
+  isLoading,
 }) => (
   <Wrapper>
     <StyledImage source={{ uri: getImageUri(image) }} />
@@ -61,9 +63,9 @@ const RestaurantDetail: FC<Props> = ({
       <Heading2>{name}</Heading2>
       <StyledDescription>{description}</StyledDescription>
       <ButtonWrapper>
-        <Button onPress={onBookButtonPress} label="Book now" />
+        <Button onPress={onBookButtonPress} label="Book now" loading={isLoading} />
       </ButtonWrapper>
-      {showCallButton && (
+      {showCallButton && !isLoading && (
         <ButtonWrapper>
           <CallLabel>Want to invite your friends?</CallLabel>
           <Button

@@ -4,7 +4,17 @@ export type TBasicUserInfo = {
   image: string;
 };
 
-export type TUserInfo = TBasicUserInfo & {
+export type TUserLoginInfo = {
   email: string;
   password: string;
+};
+
+export type TUserInfo = TBasicUserInfo & TUserLoginInfo;
+
+export type TBackendUserInfo = {
+  user_name: string;
+  email: string;
+  password: string;
+  user_image: string | null;
+  dbs_psswd: string;
 };

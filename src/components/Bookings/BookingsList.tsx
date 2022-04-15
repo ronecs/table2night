@@ -19,12 +19,15 @@ const Divider = styled.View`
   height: ${({ theme }) => theme.space.space16};
 `;
 
-const renderItem = ({ item }: ListRenderItemInfo<TBookingListItem>) => (
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const renderItem = ({ item, section }: ListRenderItemInfo<TBookingListItem>) => (
   <BookingItem
-    restaurantName={item.restaurantName}
-    id={item.id}
-    date={item.date}
-    peopleCount={+item.peopleCount}
+    restaurantName={item.rest_id__restaurant_name}
+    id={item.id_bookings}
+    date={item.date_time}
+    peopleCount={+item.num_ppl}
+    section={section.title}
   />
 );
 
@@ -46,6 +49,7 @@ const BookingsList: FC<Props> = ({ bookings }) => (
     renderItem={renderItem}
     renderSectionHeader={renderTitle}
     ListHeaderComponent={renderHeader}
+    keyExtractor={(item) => item.id_bookings}
     ItemSeparatorComponent={Divider}
     showsVerticalScrollIndicator={false}
     stickySectionHeadersEnabled={false}

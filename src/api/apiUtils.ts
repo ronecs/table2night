@@ -8,7 +8,4 @@ export const apiClient = axios.create({
   params: {
     dbs_psswd: getApiToken(),
   },
-  headers: {
-    'Content-type': 'application/json',
-  },
 });
