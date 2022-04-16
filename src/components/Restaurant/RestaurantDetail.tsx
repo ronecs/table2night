@@ -57,7 +57,7 @@ const RestaurantDetail: FC<Props> = ({
   onMakeCallPress,
   isLoading,
 }) => (
-  <Wrapper>
+  <Wrapper showsVerticalScrollIndicator={false}>
     <StyledImage source={{ uri: getImageUri(image) }} />
     <NameWrapper>
       <Heading2>{name}</Heading2>

@@ -4,13 +4,14 @@ import { TUserLoginInfo } from '@table2night/types/TUser';
 import { getApiToken } from '@table2night/utils/commonUtils';
 
 export const registerUser = async (data: any) => {
-  const result = await apiClient.post(`/RegisterUser/`, qs.stringify(data), {});
+  const result = await apiClient.post(`RegisterUser/`, qs.stringify(data), {});
+  console.log(result);
   return result;
 };
 
 export const loginUser = async (data: TUserLoginInfo) => {
   const result = await apiClient.get(
-    `/LoginUser/?dbs_psswd=${getApiToken()}&email=${data.email}&password=${data.password}`,
+    `LoginUser/?dbs_psswd=${getApiToken()}&email=${data.email}&password=${data.password}`,
   );
   return result;
 };

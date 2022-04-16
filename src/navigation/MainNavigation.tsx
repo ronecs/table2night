@@ -6,6 +6,7 @@ import RegisterScreen from '@table2night/screens/Onboarding/RegisterScreen';
 import LoginScreen from '@table2night/screens/Onboarding/LoginScreen';
 import RestaurantDetailScreen from '@table2night/screens/Restaurant/RestaurantDetailScreen';
 import { useUserInfo } from '@table2night/contexts/UserContext';
+import VideoCallScreen from '@table2night/screens/VideoCall/VideoCallScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ROUTES from './routes/routes';
 
@@ -39,6 +40,11 @@ const MainNavigation: FC = () => {
         <Stack.Screen
           name={ROUTES.RestaurantDetailScreen}
           component={RestaurantDetailScreen}
+          options={{ header: () => null }}
+        />
+        <Stack.Screen
+          name={ROUTES.VideoCallScreen}
+          component={VideoCallScreen}
           options={{ header: () => null }}
         />
       </Stack.Navigator>

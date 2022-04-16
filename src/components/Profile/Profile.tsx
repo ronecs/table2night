@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components/native';
 import { TBasicUserInfo } from '@table2night/types/TUser';
-import { Heading2 } from '@table2night/utils/theme/Texts';
+import { Heading2, Heading3 } from '@table2night/utils/theme/Texts';
 import Button from '@table2night/components/common/Button';
 import { TButtonVariant } from '@table2night/types/TButton';
-import Routes from '@table2night/navigation/routes/routes';
+import ROUTES from '@table2night/navigation/routes/routes';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '@table2night/utils/storageUtils';
+import { getImageUri } from '@table2night/utils/commonUtils';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -41,6 +42,10 @@ const ButtonWrapper = styled.View`
   margin-top: ${({ theme }) => theme.space.space16};
 `;
 
+const IdText = styled(Heading3)`
+  color: ${({ theme }) => theme.color.gray80};
+`;
+
 type Props = {
   user?: TBasicUserInfo | null;
   setUserInfo: (arg: TBasicUserInfo | null) => void;
@@ -63,7 +68,7 @@ const Profile: FC<Props> = ({ user, setUserInfo }) => {
   return (
     <Wrapper>
       <HeaderWrapper>
-        <Avatar source={{ uri: user.image }} />
+        <Avatar source={{ uri: getImageUri(user.image) }} />
         <Heading2>{user.name}</Heading2>
       </HeaderWrapper>
       <ButtonsWrapper>
@@ -71,13 +76,13 @@ const Profile: FC<Props> = ({ user, setUserInfo }) => {
           <Button variant={TButtonVariant.SECONDARY} onPress={onLogoutPress} label="Log out" />
         </LogOutButtonWrapper>
         <ButtonWrapper>
-          <Button onPress={onButtonPress(Routes.HomeTab)} label="Go back Home" />
+          <Button onPress={onButtonPress(ROUTES.HomeTab)} label="Go back Home" />
         </ButtonWrapper>
         <ButtonWrapper>
-          <Button onPress={onButtonPress(Routes.BookingsTab)} label="Show my bookings" />
+          <Button onPress={onButtonPress(ROUTES.BookingsTab)} label="Show my bookings" />
         </ButtonWrapper>
         <ButtonWrapper>
-          <Button onPress={() => undefined} label="Call a friend" />
+          <Button onPress={onButtonPress(ROUTES.VideoCallScreen)} label="Call a friend" />
         </ButtonWrapper>
       </ButtonsWrapper>
     </Wrapper>

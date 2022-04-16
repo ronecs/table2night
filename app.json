@@ -17,17 +17,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ronecsimon.table2night"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ronecsimon.table2night"
     },
     "extra": {
       "apiUrl": "https://fiit-ganadikronec.azurewebsites.net/",
       "apiToken": "helloworld"
-    }
+    },
+    "plugins": [
+      "@config-plugins/react-native-webrtc"
+    ]
   }
 }
