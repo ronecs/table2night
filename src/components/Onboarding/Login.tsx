@@ -84,7 +84,7 @@ const Login: FC = () => {
     } catch (e) {
       Toast.show({
         type: 'error',
-        text1: e.message,
+        text1: 'Wrong credentials. Please try again.',
         autoHide: true,
         position: 'bottom',
       });

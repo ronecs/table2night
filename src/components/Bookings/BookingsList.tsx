@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ListRenderItemInfo, SectionList } from 'react-native';
 import styled from 'styled-components/native';
-import { Heading2 } from '@table2night/utils/theme/Texts';
+import { Heading2, Body } from '@table2night/utils/theme/Texts';
 import BookingItem from '@table2night/components/Bookings/BookingItem';
 import { TBookingListItem, TSectionedBookings } from '@table2night/types/TBooking';
 
@@ -21,15 +21,20 @@ const Divider = styled.View`
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const renderItem = ({ item, section }: ListRenderItemInfo<TBookingListItem>) => (
-  <BookingItem
-    restaurantName={item.rest_id__restaurant_name}
-    id={item.id_bookings}
-    date={item.date_time}
-    peopleCount={+item.num_ppl}
-    section={section.title}
-  />
-);
+const renderItem = ({ item, section }: ListRenderItemInfo<TBookingListItem>) => {
+  if (section.data.length < 1) {
+    return <Heading2>No items</Heading2>;
+  }
+  return (
+    <BookingItem
+      restaurantName={item.rest_id__restaurant_name}
+      id={item.id_bookings}
+      date={item.date_time}
+      peopleCount={+item.num_ppl}
+      section={section.title}
+    />
+  );
+};
 
 const renderHeader = () => <Header>Bookings</Header>;
 
@@ -38,6 +43,13 @@ const renderTitle = ({ section }: any) => (
     <Heading2>{section.title}</Heading2>
   </SectionHeaderWrapper>
 );
+
+const renderEmpty = ({ section }: any) => {
+  if (section.data.length === 0) {
+    return <Body>No items</Body>;
+  }
+  return null;
+};
 
 type Props = {
   bookings: TSectionedBookings;
@@ -48,6 +60,7 @@ const BookingsList: FC<Props> = ({ bookings }) => (
     sections={bookings}
     renderItem={renderItem}
     renderSectionHeader={renderTitle}
+    renderSectionFooter={renderEmpty}
     ListHeaderComponent={renderHeader}
     keyExtractor={(item) => item.id_bookings}
     ItemSeparatorComponent={Divider}

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import RestaurantDetail from '@table2night/components/Restaurant/RestaurantDetail';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import BookingsModal from '@table2night/components/Bookings/BookingsModal';
@@ -11,6 +11,8 @@ import { getApiToken } from '@table2night/utils/commonUtils';
 import dayjs from 'dayjs';
 import Toast from 'react-native-toast-message';
 import { useUserInfo } from '@table2night/contexts/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import ROUTES from '@table2night/navigation/routes/routes';
 
 type Props = {
   id: string;
@@ -18,16 +20,25 @@ type Props = {
 
 const RestaurantDetailContainer: FC<Props> = ({ id }) => {
   const modalRef = useRef<BottomSheetModal>(null);
+  const { navigate } = useNavigation();
   const [showCallButton, setShowCallButton] = useState(false);
   const { userInfo } = useUserInfo();
+  const queryClient = useQueryClient();
   const { isLoading, isError, data, refetch } = useQuery('query-restaurant-detail', () =>
     fetchRestaurantDetail(id),
   );
-  const queryClient = useQueryClient();
 
   const { mutateAsync: addBookingMutation, isLoading: isLoadingBooking } = useMutation(addBooking);
 
-  if (isLoading) {
+  const [loadingTimer, setLoadingTimer] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingTimer(false);
+    }, 2000);
+  }, []);
+
+  if (isLoading || loadingTimer) {
     return <Loading />;
   }
 
@@ -69,7 +80,7 @@ const RestaurantDetailContainer: FC<Props> = ({ id }) => {
   };
 
   const onMakeCallPress = () => {
-    // Go to contacts screen here
+    navigate(ROUTES.VideoCallScreen);
   };
 
   return (
