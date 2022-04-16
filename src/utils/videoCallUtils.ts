@@ -16,7 +16,6 @@ const serverUrl =
     ? `http://${manifest?.debuggerHost?.split(`:`).shift()?.concat(`:9999`)}`
     : 'http://127.0.0.1:9999';
 
-// Config variables: change them to point to your own servers
 const SIGNALING_SERVER_URL = serverUrl;
 const PC_CONFIG = {
   iceServers: [],
@@ -87,8 +86,9 @@ export default class WebRTC {
   };
 
   closeConnection = () => {
-    console.log('Closing connection');
-    this.socket.close();
+    // this.stream.getTracks().forEach((t: any) => t.stop());
+    // this.stream.release();
+    // this.peerConnection.close();
   };
 
   sendOffer = () => {
